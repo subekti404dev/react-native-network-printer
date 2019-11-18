@@ -9,9 +9,9 @@ const PrintText = async (ip, text) => {
     });
   });
 };
-const PrintPic = async (ip, base64) => {
+const PrintPic = async (ip, base64, width) => {
   return new Promise((resolve, reject) => {
-    RNRnNetworkPrinter.PrintPic(ip, base64, {width: 210}, (err, result) => {
+    RNRnNetworkPrinter.PrintPic(ip, base64, {width: width || 210}, (err, result) => {
       if (err) reject(err);
       resolve(result);
     });
