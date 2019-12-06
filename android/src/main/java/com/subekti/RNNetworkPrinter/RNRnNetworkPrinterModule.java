@@ -49,7 +49,6 @@ public class RNRnNetworkPrinterModule extends ReactContextBaseJavaModule {
       out.write(PrinterCommand.POS_S_Align(1));
       out.write(bytes);
       out.write(PrinterCommand.POS_Set_PrtAndFeedPaper(30));
-      out.write(PrinterCommand.POS_Set_Cut(1));
       out.write(Command.ESC_Init);
       sock.close();
       cb.invoke(null, "Success");
