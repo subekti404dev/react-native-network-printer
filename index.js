@@ -9,17 +9,13 @@ const PrintText = async (ip, text) => {
     });
   });
 };
-const PrintPic = async (ip, base64, width) => {
+const PrintPic = async (ip, base64, width = 210) => {
   return new Promise((resolve, reject) => {
-    RNRnNetworkPrinter.PrintPic(ip, base64, {width: width || 210}, (err, result) => {
+    RNRnNetworkPrinter.PrintPic(ip, base64, {width}, (err, result) => {
       if (err) reject(err);
       resolve(result);
     });
   });
-};
-const GetPrinters = async () => {
-  const data = await Promise.all([getPrinter(0), getPrinter(1), getPrinter(2)]);
-  return data[0].concat(data[1]).concat(data[2]);
 };
 const CutPaper = async (ip) => {
   return new Promise((resolve, reject) => {
@@ -29,6 +25,11 @@ const CutPaper = async (ip) => {
     });
   });
 };
+const GetPrinters = async () => {
+  const data = await Promise.all([getPrinter(0), getPrinter(1), getPrinter(2)]);
+  return data[0].concat(data[1]).concat(data[2]);
+};
+
 const getPrinter = async type => {
   return new Promise((resolve, reject) => {
     Network.list(type || 0, (err, result) => {
@@ -37,4 +38,4 @@ const getPrinter = async type => {
     });
   });
 };
-export {PrintPic, PrintText, CutPaper, GetPrinters};
+export {PrintPic, PrintText, GetPrinters, CutPaper};
