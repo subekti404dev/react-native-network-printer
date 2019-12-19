@@ -96,5 +96,18 @@ public class RNRnNetworkPrinterModule extends ReactContextBaseJavaModule {
     }
 
   }
+  
+  @ReactMethod
+  public void CutPaper(String ip, Callback cb) {
+    try {
+      Socket sock = new Socket(ip, 9100);
+      DataOutputStream out = new DataOutputStream(sock.getOutputStream());
+        out.write(PrinterCommand.POS_Set_Cut(1));
+        cb.invoke(null, "Success");
+ 
+    } catch (Exception e) {
+      cb.invoke(e.toString(), null);
+    }
+  }
 
 }
