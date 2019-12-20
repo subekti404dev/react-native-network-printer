@@ -1,30 +1,15 @@
 import {NativeModules} from 'react-native';
 
 const {RNRnNetworkPrinter, Network} = NativeModules;
-const PrintText = async (ip, text) => {
+const Print = async (ip, commands) => {
   return new Promise((resolve, reject) => {
-    RNRnNetworkPrinter.PrintText(ip, text, (err, result) => {
+    RNRnNetworkPrinter.Print(ip, commands, (err, result) => {
       if (err) reject(err);
       resolve(result);
     });
   });
 };
-const PrintPic = async (ip, base64, width = 210) => {
-  return new Promise((resolve, reject) => {
-    RNRnNetworkPrinter.PrintPic(ip, base64, {width}, (err, result) => {
-      if (err) reject(err);
-      resolve(result);
-    });
-  });
-};
-const CutPaper = async (ip) => {
-  return new Promise((resolve, reject) => {
-    RNRnNetworkPrinter.CutPaper(ip, (err, result) => {
-      if (err) reject(err);
-      resolve(result);
-    });
-  });
-};
+
 const GetPrinters = async () => {
   const data = await Promise.all([getPrinter(0), getPrinter(1), getPrinter(2)]);
   return data[0].concat(data[1]).concat(data[2]);
@@ -38,4 +23,4 @@ const getPrinter = async type => {
     });
   });
 };
-export {PrintPic, PrintText, GetPrinters, CutPaper};
+export {Print, GetPrinters};
