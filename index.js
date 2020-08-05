@@ -23,4 +23,4 @@ const getPrinter = async type => {
     });
   });
 };
-export {Print, NetworkPrinter: Print, GetPrinters};
+export const {Print, NetworkPrinter: Print, GetPrinters};
