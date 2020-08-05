@@ -95,8 +95,20 @@ public class RNRnNetworkPrinterModule extends ReactContextBaseJavaModule {
               }
             } else if (command.hasKey("cutPaper")) {
               // CUT
-              out.write(PrinterCommand.POS_Set_Cut(1));
-              out.write(Command.ESC_Init);
+              boolean cutPaper = command.getBoolean("cutPaper");
+              if (cutPaper == true) {
+                out.write(PrinterCommand.POS_Set_Cut(1));
+                out.write(Command.ESC_Init);
+              }
+            } else if (command.hasKey("openCashDrawer")) {
+              // CASH DRAWER
+              boolean openCashDrawer = command.getBoolean("openCashDrawer")
+              if (openCashDrawer == true) {
+                out.write(PrinterCommand.POS_Set_Cashbox(0, 25, 250));
+              }
+            } else if (command.hasKey("feed")) {
+              int feed = command.getInt("feed");
+              out.write(PrinterCommand.POS_Set_PrtAndFeedPaper(feed))
             }
           }
           sock.close();
@@ -108,87 +120,5 @@ public class RNRnNetworkPrinterModule extends ReactContextBaseJavaModule {
     };
     executorService.execute(runnable);
   }
-  
-
-  // @ReactMethod
-  // public void PrintText(String ip, String text, Callback cb) {
-  // try {
-  // Socket sock = new Socket(ip, 9100);
-  // DataOutputStream out = new DataOutputStream(sock.getOutputStream());
-
-  // String encoding = "GBK";
-  // int codepage = 0;
-  // int widthTimes = 0;
-  // int heigthTimes = 0;
-  // int fonttype = 0;
-  // String toPrint = text;
-
-  // byte[] bytes = PrinterCommand.POS_Print_Text(toPrint, encoding, codepage,
-  // widthTimes, heigthTimes, fonttype);
-  // out.write(PrinterCommand.POS_S_Align(1));
-  // out.write(bytes);
-  // out.write(PrinterCommand.POS_Set_PrtAndFeedPaper(30));
-  // out.write(Command.ESC_Init);
-  // sock.close();
-  // cb.invoke(null, "Success");
-  // } catch (Exception e) {
-  // cb.invoke(e.toString(), null);
-  // }
-  // }
-
-  // @ReactMethod
-  // public void PrintPic(String ip, String base64Image, @Nullable ReadableMap
-  // options, Callback cb) {
-  // try {
-  // Socket sock = new Socket(ip, 9100);
-  // DataOutputStream out = new DataOutputStream(sock.getOutputStream());
-  // int width = 0;
-  // int leftPadding = 0;
-  // if (options != null) {
-  // width = options.hasKey("width") ? options.getInt("width") : 0;
-  // leftPadding = options.hasKey("left") ? options.getInt("left") : 0;
-  // }
-
-  // // cannot larger then devicesWith;
-  // if (width > deviceWidth || width == 0) {
-  // width = deviceWidth;
-  // }
-
-  // byte[] bytes = Base64.decode(base64Image, Base64.DEFAULT);
-  // Bitmap mBitmap = BitmapFactory.decodeByteArray(bytes, 0, bytes.length);
-  // int nMode = 0;
-  // if (mBitmap != null) {
-  // /**
-  // * Parameters: mBitmap 要打印的图片 nWidth 打印宽度（58和80） nMode 打印模式 Returns: byte[]
-  // */
-  // byte[] data = PrintPicture.POS_PrintBMP(mBitmap, width, nMode, leftPadding);
-
-  // out.write(Command.ESC_Init);
-  // out.write(Command.LF);
-  // out.write(PrinterCommand.POS_S_Align(1));
-  // out.write(data);
-  // out.write(PrinterCommand.POS_Set_PrtAndFeedPaper(30));
-  // out.write(Command.ESC_Init);
-  // cb.invoke(null, "Success");
-  // }
-  // } catch (Exception e) {
-  // cb.invoke(e.toString(), null);
-  // }
-
-  // }
-
-  // @ReactMethod
-  // public void CutPaper(String ip, Callback cb) {
-  // try {
-  // Socket sock = new Socket(ip, 9100);
-  // DataOutputStream out = new DataOutputStream(sock.getOutputStream());
-  // out.write(PrinterCommand.POS_Set_Cut(1));
-  // cb.invoke(null, "Success");
-
-  // } catch (Exception e) {
-  // cb.invoke(e.toString(), null);
-  // }
-  // }
-
 }
 
