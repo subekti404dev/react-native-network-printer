@@ -25,4 +25,4 @@ const getPrinter = async type => {
 };
 
 const NetworkPrinter = Print;
-export {Print, NetworkPrinter: Print, GetPrinters};
+export {Print, NetworkPrinter, GetPrinters};
