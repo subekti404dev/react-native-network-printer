@@ -102,13 +102,13 @@ public class RNRnNetworkPrinterModule extends ReactContextBaseJavaModule {
               }
             } else if (command.hasKey("openCashDrawer")) {
               // CASH DRAWER
-              boolean openCashDrawer = command.getBoolean("openCashDrawer")
+              boolean openCashDrawer = command.getBoolean("openCashDrawer");
               if (openCashDrawer == true) {
                 out.write(PrinterCommand.POS_Set_Cashbox(0, 25, 250));
               }
             } else if (command.hasKey("feed")) {
               int feed = command.getInt("feed");
-              out.write(PrinterCommand.POS_Set_PrtAndFeedPaper(feed))
+              out.write(PrinterCommand.POS_Set_PrtAndFeedPaper(feed));
             }
           }
           sock.close();
