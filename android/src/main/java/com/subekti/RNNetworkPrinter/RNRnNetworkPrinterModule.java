@@ -95,11 +95,9 @@ public class RNRnNetworkPrinterModule extends ReactContextBaseJavaModule {
               }
             } else if (command.hasKey("cutPaper")) {
               // CUT
-              boolean cutPaper = command.getInt("cutPaper");
-              if (cutPaper) {
-                out.write(PrinterCommand.POS_Set_Cut(cutPaper));
-                out.write(Command.ESC_Init);
-              }
+              int cutPaper = command.getInt("cutPaper");
+              out.write(PrinterCommand.POS_Set_Cut(cutPaper));
+              out.write(Command.ESC_Init);
             } else if (command.hasKey("openCashDrawer")) {
               // CASH DRAWER
               boolean openCashDrawer = command.getBoolean("openCashDrawer");
